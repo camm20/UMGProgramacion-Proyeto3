@@ -1,0 +1,386 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21/10/2020, 08:42:46 PM
+    Author     : cesar
+*/
+
+
+:root {
+  
+  --background-color-first:#0c2184;
+  --background-color-second:#d3d9f7;/*#ffccaa;*/
+ 
+  --text-header-color:#fff;
+  --text-secondary-color:#0c2184;
+  --table-header-bg:#e6e6e6ff;
+  --table-body-text-color:#7d4f2f;
+  --nav-item-text-color:#7d4f2f;
+  --nav-item-bghover-color:#faebd7;
+  --btn-form-background: #7d4f2f;
+  --btn-form-text-color: #fff;
+  --btn-form-background-hover: #b36e3e;
+}
+
+
+.local-navbar{
+    background-color: var(--background-color-first);
+}
+
+
+
+.divlogcontainer {
+	width: 100%;
+    height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_bkg {
+	background: -webkit-linear-gradient(-135deg, #ffccaa, var(--background-color-first));
+    background: -o-linear-gradient(-135deg, #ffccaa, var(--background-color-first));
+    background: -moz-linear-gradient(-135deg, #ffccaa, var(--background-color-first));
+    background: linear-gradient(-135deg, #ffccaa, var(--background-color-first));
+}
+
+@media (max-device-width: 780px) {
+	.divlogcontainer {
+		font-size: 1.6em;
+	}
+}
+
+.containerloginform{
+    min-width: 300px;
+    max-width: 620px;
+    background: var(--background-color-first);
+    margin: 20px;
+    border: 6px double var(--background-color-first);
+    border-radius: 5px;
+
+}
+
+*{
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+	
+}
+
+html {
+  font-family: sans-serif;
+  -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+}
+
+body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #FFF !important;
+    font-size: 14px;
+    /*font-family: 'PT Sans', sans-serif !important;*/
+    font-family: Arial, Helvetica, sans-serif !important;
+    color: var(--text-secondary-color);
+}
+
+@media (max-device-width: 768px) {
+	body{
+		font-size: 10px;
+	}
+}
+
+p{
+	margin-bottom: 14px;
+}
+
+input{
+	width: 100%;
+    padding: 5px;
+    border-radius: 2px;
+    /*border: 0px solid #c7c7c7;*/
+    border: 1px solid var(--background-color-first);
+    margin-bottom: 10px;
+    margin-top: 5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.headerloginform{
+	background-color: var(--background-color-first);
+	padding: 10px;
+	color: var(--text-header-color);
+	font-weight: bold;
+        text-align: center;
+        font-size: 20px;
+}
+
+.content_inpunts_loginform{
+	background-color: var(--background-color-second);
+	/*margin-top: 10px;*/
+	padding: 20px;
+
+}
+#login_button{
+	padding: 5px 20px;
+	background: transparent;
+    border: 2px solid var(--background-color-first);
+    border-radius: 5px;
+    color: var(--background-color-first);
+    font-weight: bold;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+#login_button:hover{
+	background: var(--background-color-first);
+    color: var(--text-header-color);
+}
+
+
+
+/*-------------------------- VENTANAS DE ALERTA Y TRABAJO -----------------------------*/
+
+.header-login-container{
+    background-color: var(--background-color-first);
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 20px;
+    text-align:left;
+    /* font-weight: bold; */
+    /* border-bottom: solid 2px #03447f; */
+}
+
+.window-msg-general{
+    background-color: rgba(0, 0, 0, 0.6588235294117647);
+    width: 100%;
+    z-index: 10000;
+    position: fixed;
+    padding: 15px;
+    top: 0;
+    bottom: 0;
+    display: none;
+    overflow-y: auto;
+}
+
+.window-workfunction-general{
+    background-color: rgba(0, 0, 0, 0.6588235294117647);
+    width: 100%;
+    z-index: 9999;
+    position: fixed;
+    padding: 15px;
+    top: 0;
+    bottom: 0;
+    display: none;
+    overflow-y: auto;
+}
+
+.window-box-workform{
+    position: absolute;
+    top: 60px;
+    bottom: 60px;
+    left: 60px;
+    right: 60px;
+    background-color: #f1f1f1;
+}
+
+.content-msg-container{
+    background-color: #dcdcdc;
+    padding: 35px 20px;
+    text-align: center;
+}
+
+.window-box-question{
+    max-width: 500px;
+    min-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 16%;
+    margin-bottom: 20px;
+    background-color: #0788ff;
+    /* box-shadow: 0px 8px 29px #969696; */
+    -webkit-box-shadow: 0 25px 20px -20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 25px 20px -20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.06);
+    -webkit-transition: all .5s ease-out;
+    transition: all .5s ease-out;
+}
+
+.btn-message-grey{
+    background-color: #f1f1f1;
+    color: #000;
+    padding: 10px 38px;
+    border: outset 2px #dcdcdc;
+}
+
+.btn-message-grey:hover{
+    background-color: #dedede;
+}
+
+.btn-close-alertclass{
+    font-size: 20px;
+    font-weight: bold;
+    display: inline;
+    background-color: #d00000;
+    padding: 3px 11px;
+    float: right;
+    margin: 0;
+    right: 0;
+    border-radius: 100px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.btn-close-workform{
+    font-size: 14px;
+    font-weight: bold;
+    display: inline;
+    background-color: #d00000;
+    color: #fff;
+    padding: 0px 6px;
+    float: right;
+    margin: 0;
+    right: 0;
+    border-radius: 100px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 250px) {
+    .window-box-question{
+        margin-top: 40%;
+    }
+    .workspace-data-container{
+        padding: 80px 15px 60px 15px !important;
+    }
+    .window-box-workform{
+        left:15px;
+        right:15px;
+    }
+}
+
+@media (min-width: 450px) {
+    .window-box-question{
+        margin-top: 5%;
+    }
+    .workspace-data-container{
+        padding: 80px 15px 15px 15px !important;
+    }
+    .window-box-workform{
+        left:15px;
+        right:15px;
+    }
+}
+
+@media (min-width: 768px) {
+    .window-box-question{
+        margin-top: 10%;
+    }
+    .workspace-data-container{
+        padding: 80px 15px 15px 15px !important;
+    }
+    .window-box-workform{
+        left:15px;
+        right:15px;
+    }
+}
+@media (min-width: 992px) {
+    .window-box-question{
+        margin-top: 10%;
+    }
+    .workspace-data-container{
+        padding: 80px 15px 15px 15px !important; 
+    }
+    .window-box-workform{
+        left:15px;
+        right:15px;
+    }
+}
+@media (min-width: 1200px) {
+    .window-box-question{
+        margin-top: 10%;
+    }
+    .workspace-data-container{
+        padding: 80px 15px 15px 15px !important;
+    }
+    .window-box-workform{
+        left:69px;
+        right:60px;
+    }
+}
+
+/*-------------------------- VENTANAS DE ALERTA Y TRABAJO -----------------------------*/
+
+
+
+/********** LOUDING STYLE **********/
+
+#loader-container {
+  width: 200px;
+  height: 200px;
+  color: white;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  border: 5px solid #aaaaaa;
+  border-radius: 50%;
+  -webkit-animation: borderScale 1s infinite ease-in-out;
+  animation: borderScale 1s infinite ease-in-out;
+}
+
+#loadingText {
+  font-family: 'Raleway', sans-serif;
+  font-weight: bold;
+  font-size: 2em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+@-webkit-keyframes borderScale {
+  0% {
+    border: 5px solid white;
+  }
+  60% {
+    border: 25px solid #aaaaaa5e;
+  }
+  100% {
+    border: 5px solid white;
+  }
+}
+
+@keyframes borderScale {
+  0% {
+    border: 5px solid white;
+  }
+  60% {
+    border: 25px solid #aaaaaa5e;
+  }
+  100% {
+    border: 5px solid white;
+  }
+}
+
+
+/********** LOUDING STYLE **********/
