@@ -23,10 +23,20 @@
 
 
         <li class="nav-item">
-          <a class="nav-link " href="/proyecto3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Productos</font></font></a>
+          <a class="nav-link " href="/proyecto3/productos.jsp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Productos</font></font></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link " href="/proyecto3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ordenes de Compra</font></font></a>
+          
+        <li class="nav-item dropdown">
+            <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+              Ordenes de Compra
+            </font></font></a>
+            <div class="dropdown-menu dropdown-menu-md-left" aria-labelledby="bd-versions">
+                <a class="dropdown-item" href="/proyecto3/create_orden_de_compra.jsp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Alta</font></font></a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/proyecto3/edit_orden_de_compra.jsp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Modificar</font></font></a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/proyecto3/delete_orden_de_compra.jsp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Baja</font></font></a>
+            </div>
         </li>
 
         <li class="nav-item dropdown">
@@ -34,9 +44,9 @@
               Reportes
             </font></font></a>
             <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-                <a class="dropdown-item" href="/proyecto3/clientes_individuales.jsp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Clientes</font></font></a>
+                <a class="dropdown-item" href="/proyecto3/reporte_clientes.jsp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Clientes</font></font></a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/proyecto3/clientes_empresas.jsp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Productos</font></font></a>
+                <a class="dropdown-item" href="/proyecto3/reporte_productos.jsp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Productos</font></font></a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/proyecto3/clientes_empresas.jsp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Orden de Compra</font></font></a>
             </div>

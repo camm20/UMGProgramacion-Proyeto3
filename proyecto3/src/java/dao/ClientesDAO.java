@@ -34,7 +34,7 @@ public class ClientesDAO {
             String consulta = "SELECT rid, nombres, apellidos, direccion, departamento, dpi, contacto, \n" +
                                 "       descuento, tipo\n" +
                                 "  FROM proyecto3.clientes\n" +
-                                "WHERE status = 'Active';";
+                                "WHERE status = 'Active' ORDER BY rid;";
             rs = statement.executeQuery(consulta);
             while(rs.next()){
                 if("Individual".equals(rs.getString("tipo"))){
@@ -132,38 +132,6 @@ public class ClientesDAO {
         return clients;
     }
     
-    public List<Cliente> getClienteEmpresas(){
-        List<Cliente> clients = new ArrayList<Cliente>();
-        Statement statement = null;
-        ResultSet rs = null;
-        try {
-            statement = VariablesGlobales.conn.createStatement();
-            
-            String consulta = "SELECT rid, nombres, apellidos, direccion, departamento, dpi, contacto, \n" +
-                                "       descuento, tipo\n" +
-                                "  FROM proyecto3.clientes\n" +
-                                " WHERE tipo = 'Empresas' AND status = 'Active';";
-            rs = statement.executeQuery(consulta);
-            while(rs.next()){
-                clients.add(new Empresas(rs.getInt("rid"), rs.getString("nombres"), 
-                            rs.getString("apellidos"), rs.getString("direccion"), 
-                            rs.getString("departamento"), rs.getString("contacto"),
-                            rs.getInt("descuento")));
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }finally{
-            try {
-                //if(VariablesGlobales.conn != null) VariablesGlobales.conn.close();
-                if(statement != null) statement.close();
-                if(rs != null) rs.close();
-            }catch(Exception e){
-                System.err.println(e.getMessage());
-            }
-            
-        }
-        return clients;
-    }
     
     public boolean addClientesIndividual(Individual cl){
         boolean flag = false;
@@ -270,6 +238,192 @@ public class ClientesDAO {
         }
         return flag;
     }
+    
+    
+    
+    
+    public boolean addClientesEmpresas(Empresas cl){
+        boolean flag = false;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try{
+        
+            String consulta = "INSERT INTO proyecto3.clientes(\n" +
+                                "            nombres, apellidos, direccion, departamento, contacto, \n" +
+                                "            descuento, tipo, status, reg_date)\n" +
+                                "    VALUES (?, ?, ?, ?, ?, ?, \n" +
+                                "            ?, 'Active', now());";
+            pst = VariablesGlobales.conn.prepareStatement(consulta);
+            pst.setString(1, (String) cl.getNombres());
+            pst.setString(2, (String) cl.getApellidos());
+            pst.setString(3, (String) cl.getDireccion());
+            pst.setString(4, (String) cl.getDepartamento());
+            pst.setString(5, (String) cl.getContacto());
+            pst.setInt(6, (int) cl.getDescuento());
+            pst.setString(7, (String) Utilerias.getNombreClase(cl.getClass()));
+            
+            if(pst.executeUpdate() == 1){
+                flag = true;
+            }
+        
+        }catch (Exception e) {
+            System.err.println(e.getMessage());
+        }finally{
+            try {
+                //if(VariablesGlobales.conn != null) VariablesGlobales.conn.close();
+                if(pst != null) pst.close();
+                if(rs != null) rs.close();
+            }catch(Exception e){
+                System.err.println(e.getMessage());
+            }
+            
+        }
+        return flag;
+    }
+    
+    
+    public List<Empresas> getClienteEmpresas(){
+        List<Empresas> clients = new ArrayList<Empresas>();
+        Statement statement = null;
+        ResultSet rs = null;
+        try {
+            statement = VariablesGlobales.conn.createStatement();
+            
+            String consulta = "SELECT rid, nombres, apellidos, direccion, departamento, dpi, contacto, \n" +
+                                "       descuento, tipo\n" +
+                                "  FROM proyecto3.clientes\n" +
+                                " WHERE tipo = 'Empresas' AND status = 'Active';";
+            rs = statement.executeQuery(consulta);
+            while(rs.next()){
+                clients.add(new Empresas(rs.getInt("rid"), rs.getString("nombres"), 
+                            rs.getString("apellidos"), rs.getString("direccion"), 
+                            rs.getString("departamento"), rs.getString("contacto"),
+                            rs.getInt("descuento")));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally{
+            try {
+                //if(VariablesGlobales.conn != null) VariablesGlobales.conn.close();
+                if(statement != null) statement.close();
+                if(rs != null) rs.close();
+            }catch(Exception e){
+                System.err.println(e.getMessage());
+            }
+            
+        }
+        return clients;
+    }
+    
+    public List<Empresas> getClienteEmpresasById(int id){
+        List<Empresas> clients = new ArrayList<Empresas>();
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            
+            
+            String consulta = "SELECT rid, nombres, apellidos, direccion, departamento, dpi, contacto, \n" +
+                                "       descuento, tipo\n" +
+                                "  FROM proyecto3.clientes\n" +
+                                " WHERE tipo = 'Empresas' AND status = 'Active' AND rid = ?;";
+            
+            pst = VariablesGlobales.conn.prepareStatement(consulta);
+            
+            pst.setInt(1, id);
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                clients.add(new Empresas(rs.getInt("rid"), rs.getString("nombres"), 
+                        rs.getString("apellidos"), rs.getString("direccion"), 
+                        rs.getString("departamento"), rs.getString("contacto"), rs.getInt("descuento")));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally{
+            try {
+                //if(VariablesGlobales.conn != null) VariablesGlobales.conn.close();
+                if(pst != null) pst.close();
+                if(rs != null) rs.close();
+            }catch(Exception e){
+                System.err.println(e.getMessage());
+            }
+            
+        }
+        return clients;
+    }
+    
+    
+    public boolean editClientesEmpresas(Empresas cl){
+        boolean flag = false;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try{
+        
+            String consulta = "UPDATE proyecto3.clientes\n" +
+                                "   SET nombres=?, apellidos=?, direccion=?, departamento=?, contacto=?, descuento=?\n" +
+                                " WHERE rid=?;";
+            pst = VariablesGlobales.conn.prepareStatement(consulta);
+            pst.setString(1, (String) cl.getNombres());
+            pst.setString(2, (String) cl.getApellidos());
+            pst.setString(3, (String) cl.getDireccion());
+            pst.setString(4, (String) cl.getDepartamento());
+            pst.setString(5, (String) cl.getContacto());
+            pst.setInt(6, (int) cl.getDescuento());
+            pst.setInt(7, cl.getId());
+            
+            if(pst.executeUpdate() == 1){
+                flag = true;
+            }
+        
+        }catch (Exception e) {
+            System.err.println(e.getMessage());
+        }finally{
+            try {
+                //if(VariablesGlobales.conn != null) VariablesGlobales.conn.close();
+                if(pst != null) pst.close();
+                if(rs != null) rs.close();
+            }catch(Exception e){
+                System.err.println(e.getMessage());
+            }
+            
+        }
+        return flag;
+    }
+    
+    public boolean changeStatusClientesEmpresas(int id, String status){
+        boolean flag = false;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try{
+        
+            String consulta = "UPDATE proyecto3.clientes\n" +
+                                "   SET status=? \n" +
+                                " WHERE rid=?;";
+            pst = VariablesGlobales.conn.prepareStatement(consulta);
+            pst.setString(1, (String) status);
+            pst.setInt(2, (int) id);
+            
+            if(pst.executeUpdate() == 1){
+                flag = true;
+            }
+        
+        }catch (Exception e) {
+            System.err.println(e.getMessage());
+        }finally{
+            try {
+                //if(VariablesGlobales.conn != null) VariablesGlobales.conn.close();
+                if(pst != null) pst.close();
+                if(rs != null) rs.close();
+            }catch(Exception e){
+                System.err.println(e.getMessage());
+            }
+            
+        }
+        return flag;
+    }
+    
+    
+    
     
     public static void main(String[] args) {
         /*ClientesDAO cli = new ClientesDAO();

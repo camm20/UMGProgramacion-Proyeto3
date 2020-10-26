@@ -7,19 +7,20 @@ package servlet;
 
 import controller.ControladorClientes;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Individual;
+import model.Empresas;
 
 /**
  *
  * @author cesar
  */
-@WebServlet(name = "editClienteIndividual", urlPatterns = {"/editarclienteindividual"})
-public class editClienteIndividual extends HttpServlet {
+@WebServlet(name = "editClienteEmpresas", urlPatterns = {"/editarclienteempresas"})
+public class editClienteEmpresas extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,14 +35,13 @@ public class editClienteIndividual extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        
         String _action = request.getParameter("action");
         int _id = Integer.parseInt(request.getParameter("id"));
         ControladorClientes cliController = new ControladorClientes();
         switch (_action) {
             case "getDataClient":
                     //ControladorClientes cliController = new ControladorClientes();
-                    response.getWriter().print(cliController.editClienteIndividualById(_id));
+                    response.getWriter().print(cliController.editClienteEmpresasById(_id));
                     break;
                 
             case "saveDataClient":
@@ -49,20 +49,20 @@ public class editClienteIndividual extends HttpServlet {
                     String _apellidos = request.getParameter("apellidos");
                     String _direccion = request.getParameter("direccion");
                     String _departamento = request.getParameter("departamento");
-                    String _dpi = request.getParameter("dpi");
-                    Individual cliIndividual = new Individual(_id,_nombres,_apellidos,_direccion,_departamento,_dpi);
+                    String _contacto = request.getParameter("contacto");
+                    String _descuento = request.getParameter("descuento");
+                    Empresas cliEmpresas = new Empresas(_id,_nombres,_apellidos,_direccion,_departamento,_contacto,Integer.parseInt(_descuento));
                     //ControladorClientes cliController = new ControladorClientes();
-                    response.getWriter().print(cliController.saveEditClienteIndividualById(cliIndividual));
+                    response.getWriter().print(cliController.saveEditClienteEmpresasById(cliEmpresas));
                     break;
                 
             case "inactiveDataClient":
-                    response.getWriter().print(cliController.changeStatusClienteIndividualById(_id, "Inactive"));
+                    response.getWriter().print(cliController.changeStatusClienteEmpresasById(_id, "Inactive"));
                     break;
                 
             default:
                 break;
         }
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

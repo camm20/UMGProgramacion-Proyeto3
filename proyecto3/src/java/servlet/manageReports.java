@@ -5,21 +5,20 @@
  */
 package servlet;
 
-import controller.ControladorClientes;
+import controller.ControladorReportes;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Individual;
 
 /**
  *
  * @author cesar
  */
-@WebServlet(name = "editClienteIndividual", urlPatterns = {"/editarclienteindividual"})
-public class editClienteIndividual extends HttpServlet {
+@WebServlet(name = "manageReports", urlPatterns = {"/managereports"})
+public class manageReports extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,35 +33,24 @@ public class editClienteIndividual extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        
         String _action = request.getParameter("action");
-        int _id = Integer.parseInt(request.getParameter("id"));
-        ControladorClientes cliController = new ControladorClientes();
+        
+        ControladorReportes reportController = new ControladorReportes();
         switch (_action) {
-            case "getDataClient":
-                    //ControladorClientes cliController = new ControladorClientes();
-                    response.getWriter().print(cliController.editClienteIndividualById(_id));
+            case "getReportClients":{
+                    String reportType = request.getParameter("tipo_cliente");
+                    if("Todos".equals(reportType)){
+                        response.getWriter().print(reportController.getAllClients());
+                    }else if("Individual".equals(reportType)){
+                        response.getWriter().print(reportController.getIndividualClients());
+                    }else if("Empresas".equals(reportType)){
+                        response.getWriter().print(reportController.getEmpresasClients());
+                    }
                     break;
-                
-            case "saveDataClient":
-                    String _nombres = request.getParameter("nombres");
-                    String _apellidos = request.getParameter("apellidos");
-                    String _direccion = request.getParameter("direccion");
-                    String _departamento = request.getParameter("departamento");
-                    String _dpi = request.getParameter("dpi");
-                    Individual cliIndividual = new Individual(_id,_nombres,_apellidos,_direccion,_departamento,_dpi);
-                    //ControladorClientes cliController = new ControladorClientes();
-                    response.getWriter().print(cliController.saveEditClienteIndividualById(cliIndividual));
-                    break;
-                
-            case "inactiveDataClient":
-                    response.getWriter().print(cliController.changeStatusClienteIndividualById(_id, "Inactive"));
-                    break;
-                
+            }
             default:
                 break;
         }
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

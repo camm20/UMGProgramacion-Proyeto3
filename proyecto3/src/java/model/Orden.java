@@ -29,18 +29,30 @@ public class Orden {
     public Orden(Date pFecha) {
         this.fechaOrden = pFecha;
     }
-
-    public Orden(int pCliente, Date pFecha) {
-        this.id = sigIdOrden++;
+    
+    public Orden(int id, Cliente pCliente) {
+        this.id = id;
         this.items = new ArrayList<ItemOrden>();
-        this.cliente = searchCliente(pCliente);
-        this.fechaOrden = pFecha;
+        this.cliente = pCliente;
+        this.fechaOrden = new Date();
         this.total = 0.0;
 
         this.estado = "Generada";
         this.tipoEnvio = "Ninguno";
         this.precioEnvio = 0;
         this.diasEnvio = 0;
+    }
+    
+    public Orden(int id, Date fechaOrden, String estado, String tipoEnvio, double precioEnvio, int diasEnvio) {
+        this.id = id;
+        this.items = new ArrayList<ItemOrden>();
+        this.fechaOrden = fechaOrden;
+        this.total = 0.0;
+
+        this.estado = estado;
+        this.tipoEnvio = tipoEnvio;
+        this.precioEnvio = precioEnvio;
+        this.diasEnvio = diasEnvio;
     }
 
     public int getItemLine(){
@@ -132,23 +144,14 @@ public class Orden {
 
     }
 
-    private Cliente searchCliente (int pCliente) {
-        Cliente cliente = null;
-        for(int i=0; i<DataSistema.clientes.size(); i++){
-            if(DataSistema.clientes.get(i).getId() == pCliente){
-                cliente = DataSistema.clientes.get(i);
-                break;
-            }
-        }
-        return cliente;
-    }
+    
 
-    public void addItems(int cantidad, int idProducto){
-        if(validProductId(idProducto)) {
-            ItemOrden newItem = new ItemOrden(++this.itemLine, cantidad, idProducto);
-            this.items.add(newItem);
-            this.total = this.total + newItem.getTotalItem();
-        }
+    public void addItems(int cantidad, Producto producto){
+        
+        ItemOrden newItem = new ItemOrden(++this.itemLine, cantidad, producto);
+        this.items.add(newItem);
+        this.total = this.total + newItem.getTotalItem();
+
     }
 
     public void deleteItems(ItemOrden itemOrden){
@@ -173,17 +176,6 @@ public class Orden {
     private Timestamp ActualDateTime(){
         Date date = new Date();
         return new Timestamp(date.getTime());
-    }
-
-    private boolean validProductId(int pIdProducto) {
-        boolean resp = false;
-        for (int i = 0; i < DataSistema.productos.size(); i++) {
-            if (DataSistema.productos.get(i).getId() == pIdProducto) {
-                resp = true;
-                break;
-            }
-        }
-        return resp;
     }
 
 }

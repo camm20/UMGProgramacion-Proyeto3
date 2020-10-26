@@ -5,10 +5,10 @@ public class ItemOrden {
     protected int cantidad;
     protected Producto producto;
 
-    public ItemOrden(int pNoLinea, int pCantidad, int pIdProducto) {
+    public ItemOrden(int pNoLinea, int pCantidad, Producto producto) {
         this.noLinea = pNoLinea;
         this.cantidad = pCantidad;
-        this.producto = searchProduct(pIdProducto);
+        this.producto = producto;
     }
 
     public int getNoLinea() {
@@ -46,19 +46,6 @@ public class ItemOrden {
 
     public double getTotalItem(){
         return this.producto.getPrecio() * cantidad;
-    }
-
-    private Producto searchProduct(int pIdProducto) {
-        Producto producto = null;
-
-        for (int i = 0; i < DataSistema.productos.size(); i++) {
-            if (DataSistema.productos.get(i).getId() == pIdProducto) {
-                producto = DataSistema.productos.get(i);
-                break;
-            }
-        }
-
-        return producto;
     }
 
 }

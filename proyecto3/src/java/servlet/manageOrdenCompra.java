@@ -5,21 +5,21 @@
  */
 package servlet;
 
-import controller.ControladorClientes;
+import controller.ControladorOrdenesdeCompraAltas;
+import controller.ControladorOrdenesdeCompraBajas;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Individual;
 
 /**
  *
  * @author cesar
  */
-@WebServlet(name = "editClienteIndividual", urlPatterns = {"/editarclienteindividual"})
-public class editClienteIndividual extends HttpServlet {
+@WebServlet(name = "manageOrdenCompra", urlPatterns = {"/managoc"})
+public class manageOrdenCompra extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,34 +34,38 @@ public class editClienteIndividual extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        
         String _action = request.getParameter("action");
-        int _id = Integer.parseInt(request.getParameter("id"));
-        ControladorClientes cliController = new ControladorClientes();
+        
+        ControladorOrdenesdeCompraAltas altasOCController = new ControladorOrdenesdeCompraAltas();
         switch (_action) {
-            case "getDataClient":
-                    //ControladorClientes cliController = new ControladorClientes();
-                    response.getWriter().print(cliController.editClienteIndividualById(_id));
+            case "altaOC":{
+                    int _idCli = Integer.parseInt(request.getParameter("idCliente"));    
+                    response.getWriter().print(altasOCController.altaOrdenCompra(_idCli));
                     break;
+            }case "addItemOC":{
+                int _idProducto = Integer.parseInt(request.getParameter("oc_codigo_producto"));
+                int _cantidad = Integer.parseInt(request.getParameter("oc_cantidad"));
                 
-            case "saveDataClient":
-                    String _nombres = request.getParameter("nombres");
-                    String _apellidos = request.getParameter("apellidos");
-                    String _direccion = request.getParameter("direccion");
-                    String _departamento = request.getParameter("departamento");
-                    String _dpi = request.getParameter("dpi");
-                    Individual cliIndividual = new Individual(_id,_nombres,_apellidos,_direccion,_departamento,_dpi);
-                    //ControladorClientes cliController = new ControladorClientes();
-                    response.getWriter().print(cliController.saveEditClienteIndividualById(cliIndividual));
-                    break;
+                response.getWriter().print(altasOCController.addItemOC(_idProducto, _cantidad));
+                break;
+            }case "bajaSearchOC":{
+                int _idOC = Integer.parseInt(request.getParameter("cod_oc"));
+                ControladorOrdenesdeCompraBajas bajasOCController = new ControladorOrdenesdeCompraBajas();
                 
-            case "inactiveDataClient":
-                    response.getWriter().print(cliController.changeStatusClienteIndividualById(_id, "Inactive"));
-                    break;
+                response.getWriter().print(bajasOCController.searchOC(_idOC));
                 
+                break;
+            }case "bajaAceptOC":{
+                int _idOC = Integer.parseInt(request.getParameter("cod_oc"));
+                ControladorOrdenesdeCompraBajas bajasOCController = new ControladorOrdenesdeCompraBajas();
+                
+                response.getWriter().print(bajasOCController.bajaOC(_idOC));
+                break;
+            }
             default:
                 break;
         }
+        
         
     }
 

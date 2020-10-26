@@ -1,25 +1,26 @@
+package servlet;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlet;
 
-import controller.ControladorClientes;
+import controller.ControladorProductos;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Individual;
+import model.Producto;
 
 /**
  *
  * @author cesar
  */
-@WebServlet(name = "editClienteIndividual", urlPatterns = {"/editarclienteindividual"})
-public class editClienteIndividual extends HttpServlet {
+@WebServlet(urlPatterns = {"/manageproducts"})
+public class manageProductos extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,31 +35,43 @@ public class editClienteIndividual extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        
         String _action = request.getParameter("action");
-        int _id = Integer.parseInt(request.getParameter("id"));
-        ControladorClientes cliController = new ControladorClientes();
+        
+        ControladorProductos prdController = new ControladorProductos();
         switch (_action) {
-            case "getDataClient":
+            case "getDataProduct":{
                     //ControladorClientes cliController = new ControladorClientes();
-                    response.getWriter().print(cliController.editClienteIndividualById(_id));
+                    int _id = Integer.parseInt(request.getParameter("id"));    
+                    response.getWriter().print(prdController.editProductoById(_id));
                     break;
-                
-            case "saveDataClient":
-                    String _nombres = request.getParameter("nombres");
-                    String _apellidos = request.getParameter("apellidos");
-                    String _direccion = request.getParameter("direccion");
-                    String _departamento = request.getParameter("departamento");
-                    String _dpi = request.getParameter("dpi");
-                    Individual cliIndividual = new Individual(_id,_nombres,_apellidos,_direccion,_departamento,_dpi);
+            }
+            case "addNewDataProduct":{
+                    String _nombre = request.getParameter("nombre");
+                    String _precio = request.getParameter("precio");
+                    Producto producto = new Producto(_nombre, Double.parseDouble(_precio));
+                    //ControladorProductos prdController = new ControladorProductos();
+                    if(prdController.addProducto(producto)){
+                        response.getWriter().print(prdController.getProductos());
+                    }else{
+                        response.getWriter().print("Error");
+                    }
+                    
+                    break;
+            }
+            case "saveDataProduct":{
+                    int _id = Integer.parseInt(request.getParameter("id"));
+                    String _nombre = request.getParameter("nombre");
+                    String _precio = request.getParameter("precio");
+                    Producto product = new Producto(_id,_nombre,Double.parseDouble(_precio));
                     //ControladorClientes cliController = new ControladorClientes();
-                    response.getWriter().print(cliController.saveEditClienteIndividualById(cliIndividual));
+                    response.getWriter().print(prdController.saveEditProductoById(product));
                     break;
-                
-            case "inactiveDataClient":
-                    response.getWriter().print(cliController.changeStatusClienteIndividualById(_id, "Inactive"));
+            }
+            case "inactiveDataProduct":{
+                    int _id = Integer.parseInt(request.getParameter("id"));
+                    response.getWriter().print(prdController.changeStatusProductoById(_id, "Inactive"));
                     break;
-                
+            }
             default:
                 break;
         }

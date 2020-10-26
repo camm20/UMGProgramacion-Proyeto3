@@ -6,12 +6,12 @@ public class Producto {
     private String nombre;
     private double precio;
 
-    public Producto (){
-        this.id = sigIdProducto++;
+    public Producto(int id, String nombre, double precio) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
     }
-
     public Producto(String nombre, double precio) {
-        this.id = new Producto().getId();
         this.nombre = nombre;
         this.precio = precio;
     }
