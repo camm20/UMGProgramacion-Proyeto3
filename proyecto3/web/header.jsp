@@ -48,7 +48,7 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/proyecto3/reporte_productos.jsp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Productos</font></font></a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/proyecto3/clientes_empresas.jsp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Orden de Compra</font></font></a>
+                <a class="dropdown-item" href="/proyecto3/reporte_oc.jsp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Orden de Compra</font></font></a>
             </div>
         </li>
       </ul>

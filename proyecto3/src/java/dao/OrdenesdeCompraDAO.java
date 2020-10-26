@@ -337,6 +337,43 @@ public class OrdenesdeCompraDAO {
         return flag;
     }
     
+    public boolean searchOCAllStatus(int idOC){
+        boolean flag = false;
+        
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try{
+        
+            String consulta = "SELECT rid, numero_oc, id_cliente, \"fechaOrden\", \"precioEnvio\", \"tipoEnvio\", \n" +
+                                "       estado\n" +
+                                "  FROM proyecto3.orden_compra\n" +
+                                "  WHERE rid = ?;";
+            
+            pst = VariablesGlobales.conn.prepareStatement(consulta);
+            
+            pst.setInt(1, idOC);
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                flag = true;
+            }
+        
+        }catch (Exception e) {
+            System.err.println(e.getMessage());
+        }finally{
+            try {
+                //if(VariablesGlobales.conn != null) VariablesGlobales.conn.close();
+                if(pst != null) pst.close();
+                if(rs != null) rs.close();
+            }catch(Exception e){
+                System.err.println(e.getMessage());
+            }
+            
+        }
+        
+        return flag;
+    }
+    
     public Orden getHeadOC(int idOC){
         Orden orden = null;
         

@@ -30,7 +30,7 @@
             
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item">Reporte</li>
+                  <li class="breadcrumb-item">Reportes</li>
                   <li class="breadcrumb-item active" aria-current="page">Productos</li>
                 </ol>
             </nav>

@@ -47,6 +47,9 @@ public class manageReports extends HttpServlet {
                         response.getWriter().print(reportController.getEmpresasClients());
                     }
                     break;
+            }case "getReportOC":{
+                int idOC = Integer.parseInt(request.getParameter("cod_oc"));
+                response.getWriter().print(reportController.getReportOC(idOC));
             }
             default:
                 break;

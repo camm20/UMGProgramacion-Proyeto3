@@ -464,6 +464,59 @@ function baja_oc_acept_resp(){
 //-------------------------- OC BAJAS ----------------------------//
 
 
+//-------------------------- REPORT OC ----------------------------//
+
+function report_oc_search(){
+    dict_data = general_validate_inputs('.report_oc_search');
+    if(dict_data['validate'] === true){
+        loading_process();
+        dict_data['action'] = 'getReportOC';
+        ajax_function('/proyecto3/managereports',params(dict_data), report_oc_search_resp);
+    }
+}
+
+function report_oc_search_resp(){
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+        close_windalert();
+        
+        if(this.response === 'Error'){
+            msg_error();
+        }else if(this.response === 'No OC'){
+            var html_msg = `<div class="header-login-container" style="background-color:red;">
+                                    <label>ERROR</label>
+                                    <p id="btn-close-alert" class="btn-close-alertclass" onclick="close_windalert()">X</p>
+                            </div>
+                            <div class="content-msg-container">
+                                    <p style="font-size:20px;">La Orden de Compra no existe en el sistema.</p>
+                                    <button class="btn btn-danger" onclick="close_windalert()">Aceptar</button>
+                            </div>`;
+
+            document.getElementById('msg-content').innerHTML = html_msg;
+            document.getElementsByClassName('window-msg-general')[0].style.display="inline-block";
+            document.body.style.overflowY = "hidden";
+        }else{
+            document.getElementById("btn_report_oc_search").disabled = true;
+            document.getElementById("cod_oc").disabled = true;
+            document.getElementById("btn_report_oc_clear").disabled = false;
+            document.querySelector('.container-fluid').insertAdjacentHTML('beforeEnd',this.response);
+        }   
+    }    
+}
+
+function report_oc_clear(){
+    document.getElementById("btn_report_oc_search").disabled = false;
+    document.getElementById("cod_oc").disabled = false;
+    document.getElementById("cod_oc").value = "";
+    document.getElementById("btn_report_oc_clear").disabled = true;
+    nodes = document.querySelector('.container-fluid');
+    while (nodes.childElementCount > 2) {  
+        nodes.removeChild(nodes.children[nodes.childElementCount - 1]);
+    }
+}
+
+//-------------------------- REPORT OC ----------------------------//
+
+
 //-------------------------- REPORT CLIENTS ----------------------//
 
 function report_client_select(){

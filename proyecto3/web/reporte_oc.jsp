@@ -1,10 +1,9 @@
 <%-- 
-    Document   : reporte_clientes
-    Created on : 26/10/2020, 01:26:25 AM
+    Document   : reporte_oc
+    Created on : 26/10/2020, 12:06:43 PM
     Author     : cesar
 --%>
 
-<%@page import="controller.ControladorReportes"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% 
     HttpSession sesion = request.getSession(false);
@@ -17,7 +16,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Proyecto 3 | Reporte Clientes</title>
+        <title>Proyecto 3 | Reporte Ordenes de Compra</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -31,32 +30,19 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item">Reportes</li>
-                  <li class="breadcrumb-item active" aria-current="page">Clientes</li>
+                  <li class="breadcrumb-item active" aria-current="page">Ordenes de Compra</li>
                 </ol>
             </nav>
             <div class="row">
                 <div class="col-md-2">
-                    <label>Tipo Cliente:</label>
-                    <select class="form-control select_report_clients" id="tipo_cliente" onchange="report_client_select()" validate="1">
-                        <option value="Individual">Individual</option>
-                        <option value="Empresas">Empresas</option>
-                        <option value="Todos" selected>Todos</option>
-                    </select>
+                    <label>Codigo OC:</label>
+                    <input type="number" class="report_oc_search" id="cod_oc" validate="1"/>
                 </div>
-                <div class="col-md-10"></div>
-            </div>
-            <div class="row" style="padding-top: 20px;">
-                
-                <div class="col-md-12">
-                    
-                    <table class="table table-sm table-hover" id="report_clients">
-                        
-                        <% ControladorReportes repController = new ControladorReportes();
-                        %>
-                        <%= repController.getAllClients() %>
-                        
-                    </table>
+                <div class="col-md-2" style="text-align: center;">
+                    <button type="button" class="btn btn-primary" id="btn_report_oc_search" style="margin-bottom: 15px;margin-top: 30px;" onclick="report_oc_search()">Buscar</button>
+                    <button type="button" class="btn btn-primary" id="btn_report_oc_clear" style="margin-bottom: 15px;margin-top: 30px;" onclick="report_oc_clear()" disabled>Limpiar</button>
                 </div>
+                <div class="col-md-8"></div>
             </div>
             
             
