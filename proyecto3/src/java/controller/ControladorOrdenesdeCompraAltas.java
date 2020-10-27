@@ -59,6 +59,26 @@ public class ControladorOrdenesdeCompraAltas {
 "                \n" +
 "            </div>\n" +
 "            <div class=\"row\">\n" +
+    "               <div class=\"col-md-2\">\n" +
+    "                <label>Tipo Envio</label>\n" +
+    "                <select class=\"form-control oc_envio\" id=\"tipo_envio\" validate=\"1\" disabled>\n" +
+    "                    <option value=\"Ninguno\" selected>Ninguno</option>\n" +
+    "                    <option value=\"Guatex\">Guatex</option>\n" +
+    "                    <option value=\"Fedex\">Fedex</option>\n" +
+    "                </select>\n" +
+    "            </div>\n" +
+    "            <div class=\"col-md-1\">\n" +
+    "                <label>Dias</label>\n" +
+    "                <input type=\"number\" class=\"oc_envio\" id=\"dias_envio\" value=\"0\" validate=\"1\" disabled />\n" +
+    "            </div>\n" +
+    "            <div class=\"col-md-1\">\n" +
+    "                <label>Costo</label>\n" +
+    "                <input type=\"number\" class=\"oc_envio\" id=\"costo_envio\" value=\"0\" validate=\"1\" disabled />\n" +
+    "            </div>\n" +
+    "            <div class=\"col-md-2\">\n" +
+    "                <button type=\"button\" class=\"btn btn-primary\" id=\"btn_save_envio_oc\" style=\"margin-bottom: 15px;margin-top: 30px;\" onclick=\"save_oc_envio()\" disabled>Guardar</button>\n" +
+    "                <button type=\"button\" class=\"btn btn-primary\" id=\"btn_change_envio_oc\" style=\"margin-bottom: 15px;margin-top: 30px;\" onclick=\"edit_oc_envio()\">Cambiar</button>\n" +
+    "            </div>" +
 "                <div class=\"col-md-2\">\n" +
 "                    <label>Codigo Producto:</label>\n" +
 "                    <input type=\"text\" class=\"oc_add_item\" id=\"oc_codigo_producto\" validate=\"1\"/>\n" +

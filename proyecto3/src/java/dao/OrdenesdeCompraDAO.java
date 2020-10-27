@@ -482,7 +482,7 @@ public class OrdenesdeCompraDAO {
         return items;
     }
     
-    public boolean baja0C(int idOC){
+    public boolean bajaOC(int idOC){
         boolean flag = false;
         
         PreparedStatement pst = null;
@@ -494,6 +494,99 @@ public class OrdenesdeCompraDAO {
                                 " WHERE numero_oc=?;";
             pst = VariablesGlobales.conn.prepareStatement(consulta);
             pst.setInt(1, idOC);
+            
+            if(pst.executeUpdate() == 1){
+                flag = true;
+            }
+            
+        }catch (Exception e) {
+            System.err.println(e.getMessage());
+        }finally{
+            try {
+                //if(VariablesGlobales.conn != null) VariablesGlobales.conn.close();
+                if(pst != null) pst.close();
+                if(rs != null) rs.close();
+            }catch(Exception e){
+                System.err.println(e.getMessage());
+            }
+            
+        }
+        
+        return flag;
+    }
+    
+    public void updateItemOrden(int idOC, int itemLine, int cantidad){
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try{
+        
+            String consulta = "UPDATE proyecto3.\"itemOrden\" \n" +
+                                "   SET cantidad = ? \n" +
+                                " WHERE numero_oc = ? AND linea = ? ;";
+            pst = VariablesGlobales.conn.prepareStatement(consulta);
+            pst.setInt(1, cantidad);
+            pst.setInt(2, idOC);
+            pst.setInt(3, itemLine);
+            
+            pst.executeUpdate();
+            
+        }catch (Exception e) {
+            System.err.println(e.getMessage());
+        }finally{
+            try {
+                //if(VariablesGlobales.conn != null) VariablesGlobales.conn.close();
+                if(pst != null) pst.close();
+                if(rs != null) rs.close();
+            }catch(Exception e){
+                System.err.println(e.getMessage());
+            }
+            
+        }
+    
+    }
+    
+    public void deleteItemOrden(int idOC){
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try{
+        
+            String consulta = "DELETE FROM proyecto3.\"itemOrden\"\n" +
+                                " WHERE numero_oc = ?;";
+            pst = VariablesGlobales.conn.prepareStatement(consulta);
+            pst.setInt(1, idOC);
+            
+            pst.executeUpdate();
+            
+        }catch (Exception e) {
+            System.err.println(e.getMessage());
+        }finally{
+            try {
+                //if(VariablesGlobales.conn != null) VariablesGlobales.conn.close();
+                if(pst != null) pst.close();
+                if(rs != null) rs.close();
+            }catch(Exception e){
+                System.err.println(e.getMessage());
+            }
+            
+        }
+    }
+    
+    public boolean setEnvio(Orden orden){
+        boolean flag = false;
+        
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try{
+        
+            String consulta = "UPDATE proyecto3.orden_compra\n" +
+                                "   SET \"precioEnvio\"=?, \n" +
+                                "       \"tipoEnvio\"=?, \"diasEnvio\"=?\n" +
+                                " WHERE numero_oc=?;";
+            pst = VariablesGlobales.conn.prepareStatement(consulta);
+            pst.setDouble(1, orden.getPrecioEnvio());
+            pst.setString(2, orden.getTipoEnvio());
+            pst.setInt(3, orden.getDiasEnvio());
+            pst.setInt(4, orden.getId());
             
             if(pst.executeUpdate() == 1){
                 flag = true;

@@ -292,7 +292,7 @@ public class ClientesDAO {
             String consulta = "SELECT rid, nombres, apellidos, direccion, departamento, dpi, contacto, \n" +
                                 "       descuento, tipo\n" +
                                 "  FROM proyecto3.clientes\n" +
-                                " WHERE tipo = 'Empresas' AND status = 'Active';";
+                                " WHERE tipo = 'Empresas' AND status = 'Active' ORDER BY rid;";
             rs = statement.executeQuery(consulta);
             while(rs.next()){
                 clients.add(new Empresas(rs.getInt("rid"), rs.getString("nombres"), 

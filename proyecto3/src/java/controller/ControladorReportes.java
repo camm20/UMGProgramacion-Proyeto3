@@ -99,8 +99,9 @@ public class ControladorReportes {
         Individual cliInd = null;
         int line = 0;
         for(Cliente cli : cliDAO.getAllClients()){
-            line++;
+            
             if("Individual".equals(Utilerias.getNombreClase(cli.getClass()))){
+                line++;
                 cliInd = (Individual) cli;
                 html_resp += "                <tr>\n" +
                     "                                <th scope=\"row\" style=\"vertical-align: middle;\">"+line+"</td>\n" +
@@ -141,8 +142,9 @@ public class ControladorReportes {
         Empresas cliEmp = null;
         int line = 0;
         for(Cliente cli : cliDAO.getAllClients()){
-            line++;
+            
             if("Empresas".equals(Utilerias.getNombreClase(cli.getClass()))){
+                line++;
                 cliEmp = (Empresas) cli;
                 html_resp += "                <tr>\n" +
                     "                                <th scope=\"row\" style=\"vertical-align: middle;\">"+line+"</td>\n" +

@@ -36,17 +36,16 @@
             <div class="row">
                 <div class="col-md-2">
                     <label>Codigo OC:</label>
-                    <input type="number" class="baja_oc_search" id="cod_oc" validate="1"/>
+                    <input type="number" class="edit_oc_search" id="cod_oc" validate="1"/>
                 </div>
                 <div class="col-md-2" style="text-align: center;">
-                    <button type="button" class="btn btn-primary" id="btn_baja_search_oc" style="margin-bottom: 15px;margin-top: 30px;" onclick="baja_oc_search()">Buscar</button>
-                    <button type="button" class="btn btn-primary" id="btn_cancel_baja_oc" style="margin-bottom: 15px;margin-top: 30px;" onclick="baja_oc_cancel_process()" disabled>Limpiar</button>
-                    <button type="button" class="btn btn-danger" id="btn_save_baja_oc" style="margin-bottom: 15px;margin-top: 30px;" onclick="baja_oc_acept_process()" disabled>Dar de Baja</button>
+                    <button type="button" class="btn btn-primary" id="btn_edit_search_oc" style="margin-bottom: 15px;margin-top: 30px;" onclick="edit_oc_search()">Buscar</button>
+                    <button type="button" class="btn btn-primary" id="btn_cancel_edit_oc" style="margin-bottom: 15px;margin-top: 30px;" onclick="edit_oc_cancel_process()" disabled>Limpiar</button>
                 </div>
                 <div class="col-md-8"></div>
             </div>
             
-            
+                        
             
             
         </div>

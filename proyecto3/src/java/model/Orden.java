@@ -58,6 +58,9 @@ public class Orden {
     public int getItemLine(){
         return this.itemLine;
     }
+    public void setItemLine(int itemLine){
+        this.itemLine = itemLine;
+    }
 
     public int getId() {
         return id;

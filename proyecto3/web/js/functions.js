@@ -463,6 +463,136 @@ function baja_oc_acept_resp(){
 
 //-------------------------- OC BAJAS ----------------------------//
 
+//-------------------------- OC EDITION --------------------------//
+
+function edit_oc_search(){
+    dict_data = general_validate_inputs('.edit_oc_search');
+    if(dict_data['validate'] === true){
+        loading_process();
+        dict_data['action'] = 'editSearchOC';
+        ajax_function('/proyecto3/managoc',params(dict_data), edit_oc_search_resp);
+    }
+}
+
+function edit_oc_search_resp(){
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+        close_windalert();
+        
+        if(this.response === 'Error'){
+            msg_error();
+        }else if(this.response === 'No OC'){
+            var html_msg = `<div class="header-login-container" style="background-color:red;">
+                                    <label>ERROR</label>
+                                    <p id="btn-close-alert" class="btn-close-alertclass" onclick="close_windalert()">X</p>
+                            </div>
+                            <div class="content-msg-container">
+                                    <p style="font-size:20px;">La Orden de Compra no existe en el sistema.</p>
+                                    <button class="btn btn-danger" onclick="close_windalert()">Aceptar</button>
+                            </div>`;
+
+            document.getElementById('msg-content').innerHTML = html_msg;
+            document.getElementsByClassName('window-msg-general')[0].style.display="inline-block";
+            document.body.style.overflowY = "hidden";
+        }else{
+            document.getElementById("btn_edit_search_oc").disabled = true;
+            document.getElementById("cod_oc").disabled = true;
+            document.getElementById("btn_cancel_edit_oc").disabled = false;
+            document.querySelector('.container-fluid').insertAdjacentHTML('beforeEnd',this.response);
+        }   
+    }    
+}
+
+function edit_oc_cancel_process(){
+    document.getElementById("btn_edit_search_oc").disabled = false;
+    document.getElementById("cod_oc").disabled = false;
+    document.getElementById("cod_oc").value = "";
+    document.getElementById("btn_cancel_edit_oc").disabled = true;
+    nodes = document.querySelector('.container-fluid');
+    while (nodes.childElementCount > 2) {  
+        nodes.removeChild(nodes.children[nodes.childElementCount - 1]);
+    }
+}
+
+function edit_oc_add_item(){
+    dict_data = general_validate_inputs('.oc_add_item');
+    if(dict_data['validate'] === true){
+        loading_process();
+        dict_data['action'] = 'editOCaddItem';
+        ajax_function('/proyecto3/managoc',params(dict_data), oc_add_item_resp);
+    }    
+}
+
+function edit_oc_item(itemLine){
+    loading_process();
+    dict_data = {"itemLine":itemLine,"action":"editOCeditItemOrden"};
+    ajax_function('/proyecto3/managoc',params(dict_data), edit_oc_item_resp);
+}
+
+function edit_oc_item_resp(){
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+        close_windalert();
+        var html_msg = this.response;
+        document.getElementById('msg-content').innerHTML = html_msg;
+        document.getElementsByClassName('window-msg-general')[0].style.display="inline-block";
+        document.body.style.overflowY = "hidden";
+    } 
+}
+
+function save_edit_itemorden_oc(itemLine){
+    dict_data = general_validate_inputs('.edit_itemorden_oc');
+    if(dict_data['validate'] === true){
+        loading_process();
+        dict_data['itemLine'] = itemLine;
+        dict_data['action'] = 'editOCSaveEditItemOrden';
+        ajax_function('/proyecto3/managoc',params(dict_data), save_edit_itemorden_oc_resp);
+    }
+    
+}
+
+function save_edit_itemorden_oc_resp(){
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+        close_windalert();
+        document.getElementById('tbl_oc_items').getElementsByTagName("tbody")[0].innerHTML = this.response;   
+    }
+}
+
+function edit_oc_remove_item(itemLine){
+    dict_data = {"itemLine":itemLine,"action":"editOCDeleteItemOrden"};
+    loading_process();
+    ajax_function('/proyecto3/managoc',params(dict_data), save_edit_itemorden_oc_resp);    
+}
+
+function save_oc_envio(){
+    dict_data = general_validate_inputs('.oc_envio');
+    if(dict_data['validate'] === true){
+        loading_process();
+        dict_data['action'] = 'saveOCEnvio';
+        ajax_function('/proyecto3/managoc',params(dict_data), save_oc_envio_resp);
+    }
+}
+
+function save_oc_envio_resp(){
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+        close_windalert();
+        if(this.response === "Success"){
+            document.querySelectorAll(".oc_envio").forEach(function(node){node.disabled=true});
+            document.getElementById("btn_save_envio_oc").disabled = true;
+            document.getElementById("btn_change_envio_oc").disabled = false;
+        }else if(this.response === "Error"){
+            msg_error();
+        }  
+    }
+}
+
+function edit_oc_envio(){
+    document.querySelectorAll(".oc_envio").forEach(function(node){node.disabled=false});
+    document.getElementById("btn_save_envio_oc").disabled = false;
+    document.getElementById("btn_change_envio_oc").disabled = true;
+}
+
+
+//-------------------------- OC EDITION --------------------------//
+
 
 //-------------------------- REPORT OC ----------------------------//
 

@@ -7,6 +7,7 @@ package servlet;
 
 import controller.ControladorOrdenesdeCompraAltas;
 import controller.ControladorOrdenesdeCompraBajas;
+import controller.ControladorOrdenesdeCompraModificar;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,13 +37,15 @@ public class manageOrdenCompra extends HttpServlet {
         
         String _action = request.getParameter("action");
         
-        ControladorOrdenesdeCompraAltas altasOCController = new ControladorOrdenesdeCompraAltas();
+        
         switch (_action) {
             case "altaOC":{
+                    ControladorOrdenesdeCompraAltas altasOCController = new ControladorOrdenesdeCompraAltas();
                     int _idCli = Integer.parseInt(request.getParameter("idCliente"));    
                     response.getWriter().print(altasOCController.altaOrdenCompra(_idCli));
                     break;
             }case "addItemOC":{
+                ControladorOrdenesdeCompraAltas altasOCController = new ControladorOrdenesdeCompraAltas();
                 int _idProducto = Integer.parseInt(request.getParameter("oc_codigo_producto"));
                 int _cantidad = Integer.parseInt(request.getParameter("oc_cantidad"));
                 
@@ -61,6 +64,40 @@ public class manageOrdenCompra extends HttpServlet {
                 
                 response.getWriter().print(bajasOCController.bajaOC(_idOC));
                 break;
+            }case "editSearchOC":{
+                int _idOC = Integer.parseInt(request.getParameter("cod_oc"));
+                ControladorOrdenesdeCompraModificar editOCController = new ControladorOrdenesdeCompraModificar();
+                
+                response.getWriter().print(editOCController.getOrdenCompra(_idOC));
+                break;
+            }case "editOCaddItem":{
+                int _idProductoedit = Integer.parseInt(request.getParameter("oc_codigo_producto"));
+                int _cantidadedit = Integer.parseInt(request.getParameter("oc_cantidad"));
+                ControladorOrdenesdeCompraModificar editOCController = new ControladorOrdenesdeCompraModificar();
+                response.getWriter().print(editOCController.addItemOC(_idProductoedit, _cantidadedit));
+                break;
+            }case "editOCeditItemOrden":{
+                int _itemOrderLine = Integer.parseInt(request.getParameter("itemLine"));
+                ControladorOrdenesdeCompraModificar editOCController = new ControladorOrdenesdeCompraModificar();
+                response.getWriter().print(editOCController.editItemOrdenOCByLine(_itemOrderLine));
+                break;
+            }case "editOCSaveEditItemOrden":{
+                int _itemOrderLine = Integer.parseInt(request.getParameter("itemLine"));
+                int _cantidad = Integer.parseInt(request.getParameter("cantidad"));
+                ControladorOrdenesdeCompraModificar editOCController = new ControladorOrdenesdeCompraModificar();
+                response.getWriter().print(editOCController.saveEditItemOrdenOC(_itemOrderLine,_cantidad));
+                break;
+            }case "editOCDeleteItemOrden":{
+                int _itemOrderLine = Integer.parseInt(request.getParameter("itemLine"));
+                ControladorOrdenesdeCompraModificar editOCController = new ControladorOrdenesdeCompraModificar();
+                response.getWriter().print(editOCController.deleteItemOrdenOC(_itemOrderLine));
+                break;
+            }case "saveOCEnvio":{
+                String _tipo_envio = request.getParameter("tipo_envio");
+                int _dias_envio = Integer.parseInt(request.getParameter("dias_envio"));
+                double _costo_envio = Double.parseDouble(request.getParameter("costo_envio"));
+                ControladorOrdenesdeCompraModificar editOCController = new ControladorOrdenesdeCompraModificar();
+                response.getWriter().print(editOCController.addEnvioOC(_tipo_envio,_dias_envio,_costo_envio));
             }
             default:
                 break;

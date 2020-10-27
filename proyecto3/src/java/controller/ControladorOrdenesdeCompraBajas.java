@@ -118,7 +118,7 @@ public class ControladorOrdenesdeCompraBajas {
         
         OrdenesdeCompraDAO ocDAO = new OrdenesdeCompraDAO();
         
-        if(ocDAO.baja0C(idOC)){
+        if(ocDAO.bajaOC(idOC)){
             html_resp += "Success";
         }else{
             html_resp += "Error";
